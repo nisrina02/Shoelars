@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use App\Models\Barang;
 
 class BarangController extends Controller
 {
@@ -13,7 +15,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $data = Barang::all();
+        
+        return view('Barang.barang', compact('data'));
     }
 
     /**
@@ -23,7 +27,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('Barang.barang_create');
     }
 
     /**
@@ -34,7 +38,34 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_barang' => 'required',
+            'foto' => 'required|mimes:jpeg, jpg, png, svg',
+            'jenis' => 'required',
+            'deskripsi' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+        ]);
+
+        // $imgName = $request->foto->getClientOriginalName().'-'.time()'.'.$request->foto->extension();
+        // $request->foto->move(public_path('Uploads'), $imgName);
+        $foto = rand().$request->file('foto')->getClientOriginalName();
+        $request->file('foto')->move(base_path("./public/Uploads"), $foto);
+
+        // if($validator->fails()){
+        //     return $this->response->errorResponse($validator->errors());
+		// }
+
+        $barang = new Barang();
+        $barang->nama_barang = $request->nama_barang;
+        $barang->foto = $foto;
+        $barang->jenis = $request->jenis;
+        $barang->deskripsi = $request->deskripsi;
+        $barang->harga = $request->harga;
+        $barang->stok = $request->stok;
+        $barang->save();
+        
+        return redirect('barang')->with('alert_pesan', 'Data telah disimpan');
     }
 
     /**
@@ -56,7 +87,8 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Barang::where('id', $id)->get();
+        return view('Barang.barang_update', compact('data'));
     }
 
     /**
@@ -68,7 +100,34 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_barang' => 'required',
+            'foto' => 'required|mimes:jpeg, jpg, png, svg',
+            'jenis' => 'required',
+            'deskripsi' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+        ]);
+
+        // $imgName = $request->foto->getClientOriginalName().'-'.time()'.'.$request->foto->extension();
+        // $request->foto->move(public_path('Uploads'), $imgName);
+        $foto = rand().$request->file('foto')->getClientOriginalName();
+        $request->file('foto')->move(base_path("./public/Uploads"), $foto);
+
+        // if($validator->fails()){
+        //     return $this->response->errorResponse($validator->errors());
+		// }
+
+        $barang = Barang::where('id', $id)->first();
+        $barang->nama_barang = $request->nama_barang;
+        $barang->foto = $foto;
+        $barang->jenis = $request->jenis;
+        $barang->deskripsi = $request->deskripsi;
+        $barang->harga = $request->harga;
+        $barang->stok = $request->stok;
+        $barang->save();
+        
+        return redirect('barang')->with('alert_pesan', 'Data telah diubah');
     }
 
     /**
@@ -79,6 +138,14 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Barang::where('id', $id)->first();
+
+        if($data != null){
+            $data->delete();
+
+            return redirect('/barang')->with('alert_message', 'Berhasil menghapus data!');
+        }
+
+        return redirect('/barang')->with('alert_message', 'ID tidak ditemukan!');
     }
 }

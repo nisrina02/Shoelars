@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Helpers\ResponseHelper;
 use Validator;
 use App\Models\User;
 
 class SellerController extends Controller
 {
+    public $response;
+    public function __construct(){
+        $this->response = new ResponseHelper();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +22,8 @@ class SellerController extends Controller
      */
     public function index()
     {
+        // $data["count"] = User::where('level', '=', 'seller')->count();
+
         $data = User::where('level', '=', 'seller')->get();
 
         return view('Seller.seller', compact('data'));
@@ -38,23 +47,27 @@ class SellerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nama' => 'required',
-            'telp' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'level' => 'required',
-          ]);
-    
-          $data = new User();
-          $data->nama = $request->nama;
-          $data->telp = $request->telp;
-          $data->email = $request->email;
-          $data->password = md5($request->password);
-          $data->level = $request->level;
-          $data->save();
-    
-          return redirect('/seller')->with('alert_pesan', 'berhasil menambah data');
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:50',
+            'telp' => 'required|string|min:10',
+            'email' => 'required|string|max:30|unique:Users',
+            'password' => 'required|string|min:6',
+            'level' => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return $this->response->errorResponse($validator->errors());
+		}
+
+        $user = new User();
+        $user->nama = $request->nama;
+        $user->telp = $request->telp;
+        $user->email = $request->email;
+        $user->password = md5($request->password);
+        $user->level = $request->level;
+        $user->save();
+
+        return redirect('/seller')->with('alert_pesan', 'Data telah disimpan');
     }
 
     /**
@@ -65,7 +78,9 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-        //
+        $data["user"] = User::where('id', $id)->get();
+
+        return view('Seller.seller', compact('data'));
     }
 
     /**
@@ -77,6 +92,7 @@ class SellerController extends Controller
     public function edit($id)
     {
         $data = User::where('id', $id)->get();
+
         return view('Seller.seller_update', compact('data'));
     }
 
@@ -89,18 +105,22 @@ class SellerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama' => 'required',
-            'telp' => 'required',
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:50',
+            'telp' => 'required|string|min:10',
         ]);
 
-        $data = User::where('id', $id)->first();
-            $data->nama = $request->nama;
-            $data->telp = $request->telp;
-            $data->save();
-        
-            return redirect('/seller')->with('alert_message', 'Berhasil mengubah data!');
-        }
+        if($validator->fails()){
+            return $this->response->errorResponse($validator->errors());
+		}
+
+        $user = User::where('id', $id)->first();
+        $user->nama = $request->nama;
+        $user->telp = $request->telp;
+        $user->save();
+
+        return redirect('/seller')->with('alert_pesan', 'Data anda telah disimpan');
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -41,9 +41,12 @@
 					</select>
 				</div>
 				<div class="col-12">
-					<button class="btn btn-primary" type="submit">Submit form</button>
+					<button class="btn btn-primary" type="submit">Simpan</button>
+					<a href="{{url('seller')}}" class="btn btn-success">Kembali</a>
 				</div>
 			</form>
+			<br>
+			
 		<!-- </div> -->
 	</div>
 

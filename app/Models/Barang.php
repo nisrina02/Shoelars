@@ -18,6 +18,6 @@ class Barang extends Model
         'harga',
         'stok'
     ];
-    protected $table = "users";
+    protected $table = "barang";
     protected $primaryKey = "id"; 
 }

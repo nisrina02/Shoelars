@@ -49,6 +49,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/seller') }}">Seller</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/log out') }}">Logout</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
                         <ul class="dropdown-menu">
