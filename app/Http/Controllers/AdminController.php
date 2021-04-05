@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use Session;
 use App\Models\User;
 
-class SellerController extends Controller
+class AdminController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('cek_login');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +15,9 @@ class SellerController extends Controller
      */
     public function index()
     {
-        $data = User::where('level', '=', 'seller')->get();
+        $data = User::where('level', '=', 'admin')->get();
 
-        return view('Seller.seller', compact('data'));
+        return view('Admin.admin', compact('data'));
     }
 
     /**
@@ -32,7 +27,7 @@ class SellerController extends Controller
      */
     public function create()
     {
-        return view('Seller.seller_create');
+        return view('Admin.admin_create');
     }
 
     /**
@@ -55,10 +50,10 @@ class SellerController extends Controller
           $data->telp = $request->telp;
           $data->email = $request->email;
           $data->password = md5($request->password);
-          $data->level = 'seller';
+          $data->level = 'admin';
           $data->save();
     
-          return redirect('/seller')->with('alert_pesan', 'berhasil menambah data');
+          return redirect('/admin')->with('alert_pesan', 'berhasil menambah data');
     }
 
     /**
@@ -81,7 +76,7 @@ class SellerController extends Controller
     public function edit($id)
     {
         $data = User::where('id', $id)->get();
-        return view('Seller.seller_update', compact('data'));
+        return view('Admin.admin_update', compact('data'));
     }
 
     /**
@@ -103,8 +98,8 @@ class SellerController extends Controller
             $data->telp = $request->telp;
             $data->save();
         
-            return redirect('/seller')->with('alert_message', 'Berhasil mengubah data!');
-        }
+            return redirect('/admin')->with('alert_message', 'Berhasil mengubah data!');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -119,9 +114,9 @@ class SellerController extends Controller
         if($data != null){
             $data->delete();
 
-            return redirect('/seller')->with('alert_message', 'Berhasil menghapus data!');
+            return redirect('/admin')->with('alert_message', 'Berhasil menghapus data!');
         }
 
-        return redirect('/seller')->with('alert_message', 'ID tidak ditemukan!');
+        return redirect('/admin')->with('alert_message', 'ID tidak ditemukan!');
     }
 }

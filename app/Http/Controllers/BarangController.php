@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Barang;
+use App\Models\Merchant;
+use DB;
+use Session;
 
 class BarangController extends Controller
 {
+    // public function __construct(){
+    //     $this->middleware('cek_login');
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,11 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $data = Barang::all();
+        $data = DB::table('barang')
+                        ->select('barang.id', 'barang.nama_barang', 'barang.foto', 'barang.jenis',
+                                'barang.deskripsi', 'barang.harga', 'barang.stok', 'merchant.nama_toko')
+                        ->join('merchant', 'merchant.id', '=', 'barang.id_merchant')
+                        ->get();
         
         return view('Barang.barang', compact('data'));
     }
@@ -63,6 +74,7 @@ class BarangController extends Controller
         $barang->deskripsi = $request->deskripsi;
         $barang->harga = $request->harga;
         $barang->stok = $request->stok;
+        $barang->id_merchant = $request->id_merchant;
         $barang->save();
         
         return redirect('barang')->with('alert_pesan', 'Data telah disimpan');
@@ -125,6 +137,7 @@ class BarangController extends Controller
         $barang->deskripsi = $request->deskripsi;
         $barang->harga = $request->harga;
         $barang->stok = $request->stok;
+        $barang->id_merchant = $request->id_merchant;
         $barang->save();
         
         return redirect('barang')->with('alert_pesan', 'Data telah diubah');

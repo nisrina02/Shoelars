@@ -5,24 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Validator;
+use Session;
 use App\Models\User;
 
 class UserController extends Controller
 {
+    // public function __construct(){
+    //     $this->middleware('cek_login');
+    // }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($limit = NULL, $offset = NULL)
+    public function index()
     {
-        $data['count'] = User::where('level', '=', 'admin')->count();
+        $data['count'] = User::where('level', '=', 'customer')->count();
 
-        if($limit == NULL && $offset == NULL){
-            $data["user"] = User::where('level', '=', 'admin')->get();
-        } else {
-            $data["user"] = User::where('level', '=', 'admin')->take($limit)->skip($offset)->get();
-        }
+        // if($limit == NULL && $offset == NULL){
+            $data["user"] = User::where('level', '=', 'customer')->get();
+        // } else {
+        //     $data["user"] = User::where('level', '=', 'admin')->take($limit)->skip($offset)->get();
+        // }
 
         return view('user', compact('data'));
     }
@@ -52,9 +57,9 @@ class UserController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if($validator->fails()){
-            return $this->response->errorResponse($validator->errors());
-        }
+        // if($validator->fails()){
+        //     return $this->response->errorResponse($validator->errors());
+        // }
 
         $user = new User();
         $user->nama = $request->nama;
@@ -64,7 +69,7 @@ class UserController extends Controller
         $user->level = 'customer';
         $user->save();
 
-        return redirect('/login')->with('alert_pesan', 'Data anda telah disimpan');
+        return redirect('/log in')->with('alert_pesan', 'Data anda telah disimpan');
     }
 
     /**
@@ -132,9 +137,9 @@ class UserController extends Controller
         if($data != null){
             $data->delete();
 
-            return redirect()->route('UserController.index')->with('alert_message', 'Berhasil menghapus data!');
+            return redirect('/user')->with('alert_message', 'Berhasil menghapus data!');
         }
 
-        return redirect()->route('UserController.index')->with('alert_message', 'ID tidak ditemukan!');
+        return redirect('/user')->with('alert_message', 'ID tidak ditemukan!');
     }
 }

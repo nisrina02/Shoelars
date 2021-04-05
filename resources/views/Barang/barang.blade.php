@@ -5,6 +5,12 @@
 <br>
 <br>
     <div class="container">
+    @if (session('alert_pesan'))
+      <div class="alert alert-success">
+          {{ session('alert_pesan') }}
+      </div>
+    @endif
+    <h1>Barang</h1>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
@@ -15,6 +21,7 @@
                 <th>Deskripsi</th>
                 <th>Harga</th>
                 <th>Stok</th>
+                <th>Toko</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -29,6 +36,7 @@
                 <td>{{ $dt->deskripsi}}</td>
                 <td>{{ $dt->harga}}</td>
                 <td>{{ $dt->stok}}</td>
+                <td>{{ $dt->nama_toko}}</td>
                 <td>
 
                   <form action="{{ url('barang_destroy', $dt->id )}}" method="post">

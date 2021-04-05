@@ -5,17 +5,11 @@
 <br>
 <br>
     <div class="container">
-
-    <h1>Seller</h1>
-          @if (session('alert_pesan'))
-          <div class="alert alert-success">
-              {{ session('alert_pesan') }}
-          </div>
-          @endif
+    <h1>Admin</h1>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>ID Seller</th>
+                <th>ID Admin</th>
                 <th>Nama</th>
                 <th>Nomor Telepon</th>
                 <th>Email</th>
@@ -34,10 +28,10 @@
                 <td>{{ $dt->level}}</td>
                 <td>
 
-                  <form action="{{ url('seller_destroy', $dt->id )}}" method="post">
+                  <form action="{{ url('admin_destroy', $dt->id )}}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                    <a href="{{ url('seller_edit', $dt->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                    <!-- <a href="{{ url('seller_edit', $dt->id) }}" class="btn btn-sm btn-primary">Edit</a> -->
                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
                   </form>
                 </td>
@@ -45,7 +39,7 @@
               @endforeach
             </tbody>
         </table>
-        <a href="{{url('seller_create')}}" class="btn btn-sm btn-success">Tambah data seller</a>
+        <a href="{{url('admin_create')}}" class="btn btn-sm btn-success">Tambah data admin</a>
     </div>
 
 @stop

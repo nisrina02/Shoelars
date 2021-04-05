@@ -21,7 +21,10 @@ class CreateBarangTable extends Migration
             $table->text('deskripsi');
             $table->unsignedBigInteger('harga');
             $table->unsignedBigInteger('stok');
+            $table->unsignedBigInteger('id_merchant');
             $table->timestamps();
+
+            // $table->foreign('id_merchant')->references('id')->on('merchant');
         });
     }
 

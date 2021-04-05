@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-        <title>@yield('title')</title>
+        <title>SHOELARS</title>
     </head>
     <body>
         <div class="container">
@@ -38,7 +38,7 @@
                 <!-- </div> -->
                 <ul class="nav nav-tabs" style="margin-top:30px;">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Beranda</a>
+                        <a class="nav-link" aria-current="page" href="{{ url('/home') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/barang') }}">Items</a>
@@ -50,17 +50,23 @@
                         <a class="nav-link" href="{{ url('/seller') }}">Seller</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/merchant') }}">Merchant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/admin') }}">Admin</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('/log out') }}">Logout</a>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="">My Account</a></li>
                             <li><a class="dropdown-item" href="#">Setting</a></li>
                             <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>    
         </div>

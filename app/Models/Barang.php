@@ -20,4 +20,8 @@ class Barang extends Model
     ];
     protected $table = "barang";
     protected $primaryKey = "id"; 
+
+    public function barang(){
+        return $this->belongsTo('App\Models\Merchant', 'id', 'id_merchant');
+    }
 }

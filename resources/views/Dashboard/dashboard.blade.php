@@ -2,8 +2,10 @@
 
 @section('content')
 
+<br>
+<br>
 <div class="container">
-    <h1>Hallo!!!</h1>
+    <h1>Hello, {{ Session::get('nama') }}</h1>
 </div>
 
 

@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use Session;
 use App\Models\User;
+use App\Models\Merchant;
+use DB;
 
-class SellerController extends Controller
+class MerchantController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('cek_login');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +17,13 @@ class SellerController extends Controller
      */
     public function index()
     {
-        $data = User::where('level', '=', 'seller')->get();
-
-        return view('Seller.seller', compact('data'));
+        $data = DB::table('merchant')
+                        ->select('merchant.id', 'merchant.nama_toko', 'merchant.alamat', 'merchant.id_user',
+                                'users.nama')
+                        ->join('users', 'users.id', '=', 'merchant.id_user')
+                        ->get();
+        
+        return view('Merchant.merchant', compact('data'));
     }
 
     /**
@@ -32,7 +33,7 @@ class SellerController extends Controller
      */
     public function create()
     {
-        return view('Seller.seller_create');
+        return view('Merchant.merchant_create');
     }
 
     /**
@@ -44,21 +45,17 @@ class SellerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama' => 'required',
-            'telp' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'nama_toko' => 'required',
+            'alamat' => 'required',
           ]);
     
-          $data = new User();
-          $data->nama = $request->nama;
-          $data->telp = $request->telp;
-          $data->email = $request->email;
-          $data->password = md5($request->password);
-          $data->level = 'seller';
+          $data = new Merchant();
+          $data->nama_toko = $request->nama_toko;
+          $data->alamat = $request->alamat;
+          $data->id_user = $request->id_user;
           $data->save();
     
-          return redirect('/seller')->with('alert_pesan', 'berhasil menambah data');
+          return redirect('/merchant')->with('alert_pesan', 'berhasil menambah data');
     }
 
     /**
@@ -80,8 +77,8 @@ class SellerController extends Controller
      */
     public function edit($id)
     {
-        $data = User::where('id', $id)->get();
-        return view('Seller.seller_update', compact('data'));
+        $data = Merchant::where('id', $id)->get();
+        return view('Merchant.merchant_update', compact('data'));
     }
 
     /**
@@ -94,17 +91,18 @@ class SellerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama' => 'required',
-            'telp' => 'required',
-        ]);
-
-        $data = User::where('id', $id)->first();
-            $data->nama = $request->nama;
-            $data->telp = $request->telp;
-            $data->save();
-        
-            return redirect('/seller')->with('alert_message', 'Berhasil mengubah data!');
-        }
+            'nama_toko' => 'required',
+            'alamat' => 'required',
+          ]);
+    
+          $data = Merchant::where('id', $id)->first();
+          $data->nama_toko = $request->nama_toko;
+          $data->alamat = $request->alamat;
+          $data->id_user = $request->id_user;
+          $data->save();
+    
+          return redirect('/merchant')->with('alert_pesan', 'berhasil mengubah data');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -114,14 +112,6 @@ class SellerController extends Controller
      */
     public function destroy($id)
     {
-        $data = User::where('id', $id)->first();
-
-        if($data != null){
-            $data->delete();
-
-            return redirect('/seller')->with('alert_message', 'Berhasil menghapus data!');
-        }
-
-        return redirect('/seller')->with('alert_message', 'ID tidak ditemukan!');
+        //
     }
 }

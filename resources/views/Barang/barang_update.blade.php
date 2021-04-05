@@ -5,6 +5,7 @@
 <br>
 <br>
 <div class="container">
+<h1>Update Data Barang</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())
       @foreach ($errors->all() as $error)
@@ -41,8 +42,13 @@
     				<label for="validationTextarea" class="form-label">Deskripsi Barang</label>
     				<textarea class="form-control" id="validationTextarea" name="deskripsi" placeholder="Deskripsi Barang" value="{{$dt->deskripsi}}" required></textarea>
     			</div>
+				<div class="mb-3">
+    				<label for="validationTextarea" class="form-label">ID Merchant</label>
+    				<input class="form-control" id="validationTextarea" name="id_merchant" placeholder="ID Merchant" value="{{$dt->id_merchant}}" required>
+    			</div>
 				<div class="col-12">
 					<button class="btn btn-primary" type="submit">Simpan</button>
+					<a href="{{url('barang')}}" class="btn btn-success">Kembali</a>
 				</div>
 			</form>
             @endforeach
