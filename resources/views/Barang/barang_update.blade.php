@@ -2,9 +2,7 @@
 
 @section('content')
 
-<br>
-<br>
-<div class="container">
+<div class="container mt-4">
 <h1>Update Data Barang</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())

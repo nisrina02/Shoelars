@@ -2,9 +2,7 @@
 
 @section('content')
 
-<br>
-<br>
-<div class="container">
+<div class="container mt-4">
 <h1>Update Data Seller</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())
@@ -44,7 +42,7 @@
 					</select>
 				</div> -->
 				<div class="col-12">
-					<button class="btn btn-primary" type="submit">Submit form</button>
+					<button class="btn btn-primary" type="submit">Simpan</button>
 					<a href="{{url('seller')}}" class="btn btn-success">Kembali</a>
 				</div>
 			</form>

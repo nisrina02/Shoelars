@@ -11,9 +11,9 @@ use Session;
 
 class BarangController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('cek_login');
-    // }
+    public function __construct(){
+        $this->middleware('cek_login');
+    }
 
     /**
      * Display a listing of the resource.
@@ -38,7 +38,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('Barang.barang_create');
+        $data = Merchant::all();
+        return view('Barang.barang_create', compact('data'));
     }
 
     /**
@@ -77,7 +78,7 @@ class BarangController extends Controller
         $barang->id_merchant = $request->id_merchant;
         $barang->save();
         
-        return redirect('barang')->with('alert_pesan', 'Data telah disimpan');
+        return redirect('barang')->with('alert_message', 'Data telah disimpan');
     }
 
     /**
@@ -140,7 +141,7 @@ class BarangController extends Controller
         $barang->id_merchant = $request->id_merchant;
         $barang->save();
         
-        return redirect('barang')->with('alert_pesan', 'Data telah diubah');
+        return redirect('barang')->with('alert_message', 'Data telah diubah');
     }
 
     /**

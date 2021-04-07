@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::delete('barang_destroy/{id}', [BarangController::class, 'destroy']);
 
 //CRUD Admin
 Route::get('admin', [AdminController::class, 'index']);
+// Route::get('admin/{id}', [AdminController::class, 'show']);
 Route::get('admin_create', [AdminController::class, 'create']);
 Route::post('admin_store', [AdminController::class, 'store']);
 Route::get('admin_edit/{id}', [AdminController::class, 'edit']);
@@ -68,3 +70,10 @@ Route::post('merchant_store', [MerchantController::class, 'store']);
 Route::get('merchant_edit/{id}', [MerchantController::class, 'edit']);
 Route::put('merchant_update/{id}', [MerchantController::class, 'update']);
 Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
+
+//CART
+Route::get('transaksi', [TransaksiController::class, 'index']);
+Route::get('transaksi_create/{id_barang}', [TransaksiController::class, 'add_cart']);
+Route::get('transaksi_clearAll', [TransaksiController::class, 'clear_all']);
+Route::get('transaksi_simpanCart',[TransaksiController::class, 'simpan_cart_db']);
+Route::get('transaksi_hapus/{id_barang}', [TransaksiController::class, 'hapus_item']);

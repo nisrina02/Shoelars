@@ -2,9 +2,8 @@
 
 @section('content')
 
-<br>
-<br>
-<div class="container">
+
+<div class="container mt-4">
 <h1>Tambah Merchant Baru</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())
@@ -22,10 +21,20 @@
 					<label for="validationDefault02" class="form-label">Alamat</label>
 					<input type="text" class="form-control" id="validationDefault02" name="alamat" placeholder="Alamat" required>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-3">
+					<label for="validationDefault04" class="form-label">ID Seller</label>
+					<select class="form-select" id="validationDefault04" name="id_user" required>
+					<option selected disabled value="">--Seller--</option>
+					@foreach($data as $dt)
+					<option>{{ $dt->id }}</option>
+					@endforeach
+					</select>
+				</div>
+				
+				<!-- <div class="col-md-6">
 					<label for="validationDefault03" class="form-label">ID Seller</label>
 					<input type="text" class="form-control" id="validationDefault03" name="id_user" placeholder="ID Seller" required>
-				</div>
+				</div> -->
 				<div class="col-12">
 					<button class="btn btn-primary" type="submit">Simpan</button>
 					<a href="{{url('merchant')}}" class="btn btn-success">Kembali</a>

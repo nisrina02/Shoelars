@@ -10,9 +10,9 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('cek_login');
-    // }
+    public function __construct(){
+        $this->middleware('cek_login');
+    }
 
     /**
      * Display a listing of the resource.
@@ -69,7 +69,7 @@ class UserController extends Controller
         $user->level = 'customer';
         $user->save();
 
-        return redirect('/log in')->with('alert_pesan', 'Data anda telah disimpan');
+        return redirect('/log in')->with('alert_message', 'Data anda telah disimpan');
     }
 
     /**
@@ -121,7 +121,7 @@ class UserController extends Controller
         $user->telp = $request->telp;
         $user->save();
 
-        return redirect->route('UserController.index')->with('alert_pesan', 'Data anda telah disimpan');
+        return redirect->route('UserController.index')->with('alert_message', 'Data anda telah disimpan');
     }
 
     /**

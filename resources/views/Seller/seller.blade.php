@@ -2,14 +2,12 @@
 
 @section('content')
 
-<br>
-<br>
-    <div class="container">
+    <div class="container mt-4">
 
     <h1>Seller</h1>
-          @if (session('alert_pesan'))
+          @if (session('alert_message'))
           <div class="alert alert-success">
-              {{ session('alert_pesan') }}
+              {{ session('alert_message') }}
           </div>
           @endif
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

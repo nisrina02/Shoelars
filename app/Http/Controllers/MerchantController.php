@@ -7,9 +7,13 @@ use Validator;
 use App\Models\User;
 use App\Models\Merchant;
 use DB;
+use Session;
 
 class MerchantController extends Controller
 {
+    public function __construct(){
+        $this->middleware('cek_login');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +37,10 @@ class MerchantController extends Controller
      */
     public function create()
     {
-        return view('Merchant.merchant_create');
+        $data = User::where('level', '=', 'seller')->get();
+
+        return view('Merchant.merchant_create', compact('data'));
+        // return view('Merchant.merchant_create');
     }
 
     /**
@@ -55,7 +62,7 @@ class MerchantController extends Controller
           $data->id_user = $request->id_user;
           $data->save();
     
-          return redirect('/merchant')->with('alert_pesan', 'berhasil menambah data');
+          return redirect('/merchant')->with('alert_message', 'berhasil menambah data');
     }
 
     /**
@@ -101,7 +108,7 @@ class MerchantController extends Controller
           $data->id_user = $request->id_user;
           $data->save();
     
-          return redirect('/merchant')->with('alert_pesan', 'berhasil mengubah data');
+          return redirect('/merchant')->with('alert_message', 'berhasil mengubah data');
     }
 
     /**
@@ -112,6 +119,14 @@ class MerchantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Merchant::where('id', $id)->first();
+
+        if($data != null){
+            $data->delete();
+
+            return redirect('/merchant')->with('alert_message', 'Berhasil menghapus data!');
+        }
+
+        return redirect('/merchant')->with('alert_message', 'ID tidak ditemukan!');
     }
 }

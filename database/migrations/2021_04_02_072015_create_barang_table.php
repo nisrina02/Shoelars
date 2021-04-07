@@ -24,7 +24,7 @@ class CreateBarangTable extends Migration
             $table->unsignedBigInteger('id_merchant');
             $table->timestamps();
 
-            // $table->foreign('id_merchant')->references('id')->on('merchant');
+            // $table->foreign('id_merchant')->references('id')->on('merchant')->onDelete('cascade');
         });
     }
 

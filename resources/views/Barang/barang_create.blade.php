@@ -2,9 +2,7 @@
 
 @section('content')
 
-<br>
-<br>
-<div class="container">
+<div class="container mt-4">
 <h1>Tambah Barang Baru</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())
@@ -40,10 +38,20 @@
     				<label for="validationTextarea" class="form-label">Deskripsi Barang</label>
     				<textarea class="form-control" id="validationTextarea" name="deskripsi" placeholder="Deskripsi Barang" required></textarea>
     			</div>
-				<div class="mb-3">
+				<div class="col-md-3">
+					<label for="validationDefault04" class="form-label">ID Merchant</label>
+					<select class="form-select" id="validationDefault04" name="id_merchant" required>
+					<option selected disabled value="">--Merchant--</option>
+					@foreach($data as $dt)
+					<option>{{ $dt->id }}</option>
+					@endforeach
+					</select>
+				</div>
+				
+				<!-- <div class="mb-3">
     				<label for="validationTextarea" class="form-label">ID Merchant</label>
     				<input class="form-control" id="validationTextarea" name="id_merchant" placeholder="ID Merchant" required>
-    			</div>
+    			</div> -->
 				<div class="col-12">
 					<button class="btn btn-primary" type="submit">Simpan</button>
 					<a href="{{url('barang')}}" class="btn btn-success">Kembali</a>

@@ -2,10 +2,8 @@
 
 @section('content')
 
-<br>
-<br>
-<div class="container">
-<h1>Tambah Seller Baru</h1>
+<div class="container mt-4">
+<h1>Tambah Admin Baru</h1>
 		<!-- <div class="wrap-contact100"> -->
       <!-- @if($errors->any())
       @foreach ($errors->all() as $error)

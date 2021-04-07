@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
+use Session;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+        $this->middleware('cek_login');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +57,7 @@ class AdminController extends Controller
           $data->level = 'admin';
           $data->save();
     
-          return redirect('/admin')->with('alert_pesan', 'berhasil menambah data');
+          return redirect('/admin')->with('alert_message', 'berhasil menambah data');
     }
 
     /**
@@ -64,7 +68,9 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $data["user"] = User::where('id', $id)->get();
+
+        return view('Admin.admin', compact('data'));
     }
 
     /**

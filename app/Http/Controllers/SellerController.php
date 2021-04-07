@@ -9,9 +9,9 @@ use App\Models\User;
 
 class SellerController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('cek_login');
-    // }
+    public function __construct(){
+        $this->middleware('cek_login');
+    }
 
     /**
      * Display a listing of the resource.
@@ -58,7 +58,7 @@ class SellerController extends Controller
           $data->level = 'seller';
           $data->save();
     
-          return redirect('/seller')->with('alert_pesan', 'berhasil menambah data');
+          return redirect('/seller')->with('alert_message', 'berhasil menambah data');
     }
 
     /**
@@ -69,7 +69,9 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-        //
+        $data["user"] = User::where('id', $id)->get();
+
+        return view('seller', compact('data'));
     }
 
     /**

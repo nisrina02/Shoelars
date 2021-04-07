@@ -23,11 +23,12 @@ class LoginController extends Controller
 
         if($proses->count()>0){
             $data=$proses->first();
+            Session::put('id', $data->id);
             Session::put('nama', $data->nama);
             Session::put('email', $data->email);
             Session::put('status', $data->status);
             Session::put('login_status', true);
-            return redirect('/home');
+            return redirect('/home')->with('alert_message', 'berhasil mengubah data');
         } else {
             Session::flash('pesan', 'Email dan Password salah');
             return redirect('log in');
