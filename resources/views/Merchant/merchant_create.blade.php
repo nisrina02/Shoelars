@@ -26,7 +26,7 @@
 					<select class="form-select" id="validationDefault04" name="id_user" required>
 					<option selected disabled value="">--Seller--</option>
 					@foreach($data as $dt)
-					<option>{{ $dt->id }}</option>
+					<option value="{{ $dt->id }}">{{ $dt->nama }}</option>
 					@endforeach
 					</select>
 				</div>

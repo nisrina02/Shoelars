@@ -72,8 +72,8 @@ Route::put('merchant_update/{id}', [MerchantController::class, 'update']);
 Route::delete('merchant_destroy/{id}', [MerchantController::class, 'destroy']);
 
 //CART
-Route::get('transaksi', [TransaksiController::class, 'index']);
-Route::get('transaksi_create/{id_barang}', [TransaksiController::class, 'add_cart']);
+Route::get('transaksi/{id}', [TransaksiController::class, 'index']);
+Route::post('transaksi_add/{id}', [TransaksiController::class, 'transaksi']);
 Route::get('transaksi_clearAll', [TransaksiController::class, 'clear_all']);
 Route::get('transaksi_simpanCart',[TransaksiController::class, 'simpan_cart_db']);
 Route::get('transaksi_hapus/{id_barang}', [TransaksiController::class, 'hapus_item']);

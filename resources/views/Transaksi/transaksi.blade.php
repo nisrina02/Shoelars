@@ -1,49 +1,62 @@
 @extends('template')
-
 @section('content')
 
-    <div class="container mt-4">
+  <div class="container mt-4">
+      <div class="row">
+          <div class="col-md-12">
+              <a href="{{ url('barang')}}" class="btn btn-warning"><i class="fa fa-arrow-left"></i>Kembali</a>
+          </div>          
+          <div class="col-md-12 mt-3">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <img src="{{ url('uploads') }}/{{ $barang->foto }}" class="rounded mx-auto d-block" width="100%" alt="">
+                          </div>
+                          <div class="col-md-6 mt-5">
+                              <h2>{{ $barang->nama_barang}}</h2>
+                              <table class="table">
+                                  <tbody>
+                                      <tr>
+                                        <td>Harga</td>
+                                        <td>:</td>
+                                        <td>Rp. {{ (number_format($barang->harga))}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Stok</td>
+                                        <td>:</td>
+                                        <td>{{ number_format($barang->stok) }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Deskripsi</td>
+                                        <td>:</td>
+                                        <td>{{ $barang->deskripsi }}</td>
+                                      </tr>
 
-    <h1>Seller</h1>
-          @if (session('alert_message'))
-          <div class="alert alert-success">
-              {{ session('alert_message') }}
+                                      <form action="{{ url('transaksi_add', $barang->id)}}" method="post">
+                                      {{ csrf_field() }}
+                                          <tr>
+                                            <td>Jumlah Pesan</td>
+                                            <td>:</td>
+                                            <td>
+                                              <input class="form-control" type="text" name="qty" required="">
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                              <button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Masukkan Keranjang</button>
+                                            </td>
+                                          </tr>
+                                      </form>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-          @endif
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama Barang</th>
-                <th>Gambar</th>
-                <th>Harga</th>
-                <th>Level</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- @php $no = 1; @endphp -->
-              @foreach($data as $dt)
-              <tr>
-                <td>{{ $dt->id }}</td>
-                <td>{{ $dt->nama}}</td>
-                <td>{{ $dt->telp}}</td>
-                <td>{{ $dt->email}}</td>
-                <td>{{ $dt->level}}</td>
-                <td>
-
-                  <form action="{{ url('seller_destroy', $dt->id )}}" method="post">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <a href="{{ url('seller_edit', $dt->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-        </table>
-        <a href="{{url('seller_create')}}" class="btn btn-sm btn-success">Tambah data seller</a>
-    </div>
-
-@stop
+      </div>
+  </div>
+@endsection
